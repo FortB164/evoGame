@@ -1,0 +1,48 @@
+package populationBoard;
+import miniPeople.miniPerson;
+import java.util.HashMap;
+
+public class populationBoard {
+
+    int sizeX;
+    int sizeY;
+
+    HashMap <coordinatePair, miniPerson > populationMap;
+
+    public populationBoard(int sizeX, int sizeY) {
+        this.sizeX = sizeX;
+        this.sizeY = sizeY;
+        populationMap = new HashMap < > ();
+
+    }
+
+    // basic methods to get the size and population of the board
+    // get how many people are on the board and how many empty spaces are left
+    public int getPopulationSize() {
+        return populationMap.size();
+    }
+
+    public int getEmptySpaces() {
+        return sizeX * sizeY - getPopulationSize();
+    }
+
+
+    // helper method to validate coordinates
+    public void validateCoordinate(int x, int y) throws invalidCoordinatesException {
+        if (x < 0 || x >= sizeX || y < 0 || y >= sizeY) {
+            throw new invalidCoordinatesException("Coordinates out of bounds");
+        }
+    }
+    
+    public boolean isOccupied(int x, int y) {
+		validateCoordinate(x, y);
+		return populationMap.containsKey(new coordinatePair(x, y));
+	}
+
+}
+
+class invalidCoordinatesException extends Exception{
+	public invalidCoordinatesException(String message) {
+		super(message);
+	}
+}

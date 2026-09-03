@@ -1,0 +1,24 @@
+import static utilities.util.print;
+
+import miniPeople.*;
+import utilities.util;
+import utilities.generateMiniPerson;
+
+
+public class test {
+    public static void main(String[] args) {
+
+
+       
+        generateMiniPerson gmp = new generateMiniPerson();
+        miniPerson mp1 = gmp.generate();
+        miniPerson mp2 = gmp.generate();
+        
+        miniPerson child = mp1.breed(mp2);
+
+
+
+
+    }
+
+}

@@ -1,0 +1,11 @@
+package populationBoard;
+
+public class boardController {
+	
+	int sizeX;
+	int sizeY;
+	populationBoard board;
+	boardController(int sizeX, int sizeY, populationBoard board) {
+
+	}
+}

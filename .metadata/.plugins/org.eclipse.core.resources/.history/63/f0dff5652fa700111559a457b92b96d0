@@ -1,0 +1,68 @@
+package miniPeople;
+import utilities.util;
+import static utilities.util.print;
+import java.util.ArrayList;
+import java.util.Collections;
+
+public abstract class miniPerson{
+    
+    double [] strength;
+    double [] speed;
+    double [] iq;
+
+    public miniPerson(){
+    }
+
+    public String getAveragedStats(){
+        String ret = "";
+
+        ret+=
+        "Strength: " + Double.toString(util.arrayAverage(strength)) + "\n" +
+        "Speed: " + Double.toString(util.arrayAverage(speed)) + "\n" +
+        "IQ: " + Double.toString(util.arrayAverage(iq));
+        
+        return ret;
+    }
+
+    public Gender getGender(){
+        if (this instanceof miniMan) return Gender.MALE;
+        else if (this instanceof miniWoman) return Gender.FEMALE;
+
+        return Gender.NULL;
+    }
+    
+    public void fight(miniPerson mp1, miniPerson mp2) {
+    	print("A fight for dominance has broken out");
+    }
+    
+    
+    public miniPerson breed(miniPerson mp1, miniPerson mp2){
+    	
+    	if (mp1.getGender() == mp2.getGender()) {
+    		fight(mp1, mp2);
+    	}
+    	
+    	ArrayList<Double> mergedStrength = new ArrayList<>();
+    	
+    	Collections.addAll(mergedStrength, mp1.strength);
+    	
+    	
+    	
+    	ArrayList<String> colorsList = new ArrayList<>();
+        
+        colorsList.add("Yellow"); // Existing element
+
+        // Add the entire array to the ArrayList
+        Collections.addAll(mergedStrength, mp1.strength);
+    
+    	
+        double manStr = mp1. strength[(int)(Math.random() * strength.length)];
+        // implement breed logic later
+
+        if ((int)(Math.random() * 2) == 0){
+            return new miniMan(kidStr, kidSpd, kidIq);
+        }
+
+        return new miniWoman(kidStr, kidSpd, kidIq);
+    }
+}

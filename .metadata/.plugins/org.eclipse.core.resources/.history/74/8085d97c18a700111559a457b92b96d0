@@ -1,0 +1,11 @@
+package populationBoard;
+
+public class coordinatePairs {
+	int x;
+	int y;
+	
+	coordinatePairs(int x, int y){
+		this.x = x;
+		this.y = y;
+	}
+}

@@ -1,0 +1,23 @@
+package miniPeople;
+public class miniWoman extends miniPerson{
+    
+    public miniWoman(double [] strength, double [] speed, double [] iq){
+
+        this.strength = strength;
+        this.speed = speed;
+        this.iq = iq;
+
+        for(int i = 0; i < strength.length; i++){
+            this.strength[i] = strength[i]*(0.666);
+        }
+
+        for(int i = 0; i < speed.length; i++){
+            this.speed[i] = speed[i]*(0.8);
+        }
+        
+        for(int i = 0; i < iq.length; i++){
+            this.iq[i] = iq[i]*(1.25);
+        }
+    }
+
+}

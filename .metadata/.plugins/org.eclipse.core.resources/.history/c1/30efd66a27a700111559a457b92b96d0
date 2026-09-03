@@ -1,0 +1,30 @@
+package miniPeople;
+import utilities.util;
+
+public abstract class miniPerson{
+    
+    double [] strength;
+    double [] speed;
+    double [] iq;
+
+    public miniPerson(){
+    }
+
+    public String getAveragedStats(){
+        String ret = "";
+
+        ret+=
+        "Strength: " + Double.toString(util.arrayAverage(strength)) + "\n" +
+        "Speed: " + Double.toString(util.arrayAverage(speed)) + "\n" +
+        "IQ: " + Double.toString(util.arrayAverage(iq));
+        
+        return ret;
+    }
+
+    public Gender getGender(){
+        if (this instanceof miniMan) return Gender.MALE;
+        else if (this instanceof miniWoman) return Gender.FEMALE;
+
+        return Gender.NULL;
+    }
+}

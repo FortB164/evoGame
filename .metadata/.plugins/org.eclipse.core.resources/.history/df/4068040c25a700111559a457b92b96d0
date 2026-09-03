@@ -1,0 +1,7 @@
+package utilities;
+import miniPeople.*;
+public class generateMiniPerson {
+	
+	public generateMiniPerson(Gender gender) {
+	}
+}

@@ -1,0 +1,4 @@
+INDEX VERSION 1.134+C:\Users\Video\Documents\coding_files_2\java\evoGame\.metadata\.plugins\org.eclipse.jdt.core
+3663795532.index
+3413270776.index
+1865797976.index

@@ -1,0 +1,40 @@
+import static utilities.util.print;
+
+import miniPeople.*;
+import utilities.util;
+
+
+public class test {
+    public static void main(String[] args) {
+
+
+        miniMan mm = new miniMan(
+            util.generateDoubleArray(2,10,100),
+            util.generateDoubleArray(2,10,100),
+            util.generateDoubleArray(2,10,100)
+        );
+
+        miniWoman mw = new miniWoman(
+        	util.generateDoubleArray(2,10,100),
+        	util.generateDoubleArray(2,10,100),
+        	util.generateDoubleArray(2,10,100)
+        );
+
+        /* I dont know output gender of child before assigning it, so I assign human */
+        miniPerson mp = mm.breed(mw); 
+        
+        /* This was previously a problem. But I realised
+        if all I need to know is the gender of the child, or any object, during tournament selection
+        then I dont need to type cast it as male or female, I can just use the getGender() method */
+        mp.getGender();
+
+
+        print(mp.getAveragedStats());
+        print(mp.getGender());
+
+
+
+
+    }
+
+}

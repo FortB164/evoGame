@@ -1,0 +1,26 @@
+package populationBoard;
+
+import miniPeople.miniPerson;
+
+public class boardController {
+	
+	int sizeX;
+	int sizeY;
+	populationBoard board;
+	
+	
+	boardController(int sizeX, int sizeY, populationBoard board) {
+
+		this.sizeX = sizeX;
+		this.sizeY = sizeY;
+		this.board = board;
+	}
+	
+	
+	public miniPerson getPerson(int x, int y) {
+        validateCoordinate(x, y);
+        return populationMap.get(new coordinatePair(x, y));
+    }
+	
+	
+}

@@ -1,0 +1,34 @@
+package utilities;
+import miniPeople.*;
+public class generateMiniPerson {
+
+    miniPerson mp;
+
+    public generateMiniPerson() {}
+
+    public miniPerson generate() {
+        double[] strength = util.generateDoubleArray(2, 10, 100);
+        double[] speed = util.generateDoubleArray(2, 10, 100);
+        double[] iq = util.generateDoubleArray(2, 10, 100);
+
+        if ((int)(Math.random() * 2) == 0) {
+            miniMan mm = new miniMan(
+                util.generateDoubleArray(2, 10, 100),
+                util.generateDoubleArray(2, 10, 100),
+                util.generateDoubleArray(2, 10, 100)
+            );
+
+        }
+        
+        else {
+            miniWoman mw = new miniWoman(
+                util.generateDoubleArray(2, 10, 100),
+                util.generateDoubleArray(2, 10, 100),
+                util.generateDoubleArray(2, 10, 100)
+            );
+        }
+
+        return mp;
+    }
+
+}

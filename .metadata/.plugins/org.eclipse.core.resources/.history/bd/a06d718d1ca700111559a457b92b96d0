@@ -1,0 +1,115 @@
+package populationBoard;
+import miniPeople.miniPerson;
+import java.util.HashMap;
+
+public class populationBoard {
+	
+	int sizeX;
+	int sizeY;
+	
+	HashMap<coordinatePair, miniPerson> populationMap;
+	
+	public populationBoard(int sizeX, int sizeY){
+		this.sizeX = sizeX;
+		this.sizeY = sizeY;
+		populationMap = new HashMap<>();
+		
+	}
+	
+	// get how many people are on the board and how many empty spaces are left
+	public int  getPopulationSize() {
+		return populationMap.size();
+	}
+	
+	public int getEmptySpaces() {
+		return sizeX*sizeY - getPopulationSize();
+	}
+	
+	
+	
+	// add tournament board methods
+
+	public miniPerson getPerson(int x, int y) {
+		validateCoordinate(x, y);
+		return populationMap.get(new coordinatePair(x,y));
+	}
+	
+
+	
+	public void setOrRemovePerson(miniPerson person, int x, int y, String action) {
+		validateCoordinate(x, y);
+		if(action.equals("add")) {
+			populationMap.put(new coordinatePair(x,y), person);
+		} else if(action.equals("remove")) {
+			populationMap.remove(new coordinatePair(x,y));
+		}
+	}
+	
+	public boolean isOccupied(int x, int y) {
+		validateCoordinate(x, y);
+		return populationMap.containsKey(new coordinatePair(x,y));
+	}
+	
+	public void movePerson(int oldX, int oldY, int newX, int newY) {
+		validateCoordinate(oldX, oldY);
+		validateCoordinate(newX, newY);
+		
+		if(!isOccupied(oldX, oldY)) {
+			throw new IllegalArgumentException("No person at the old coordinates");
+		}
+		
+		if(isOccupied(newX, newY)) {
+			throw new IllegalArgumentException("New coordinates are already occupied");
+		}
+		
+		miniPerson person = getPerson(oldX, oldY);
+		removePerson(oldX, oldY);
+		addPerson(person, newX, newY);
+	}
+	
+	public void movePersonByOne(int x, int y, String direction) {
+		validateCoordinate(x, y);
+		
+		if(!isOccupied(x, y)) {
+			throw new IllegalArgumentException("No person at the given coordinates");
+		}
+		
+		int newX = x;
+		int newY = y;
+		
+		switch(direction.toLowerCase()) {
+			case "up":
+				newY -= 1;
+				break;
+			case "down":
+				newY += 1;
+				break;
+			case "left":
+				newX -= 1;
+				break;
+			case "right":
+				newX += 1;
+				break;
+			default:
+				throw new IllegalArgumentException("Invalid direction. Use 'up', 'down', 'left', or 'right'.");
+		}
+		
+		movePerson(x, y, newX, newY);
+		
+	}
+	
+	
+	
+	
+	// helper method to validate coordinates
+	public void validateCoordinate(int x, int y) {
+		if(x < 0 || x >= sizeX || y < 0 || y >= sizeY) {
+			throw new IllegalArgumentException("Coordinates out of bounds");
+		}
+	}
+	
+
+	
+	
+}
+

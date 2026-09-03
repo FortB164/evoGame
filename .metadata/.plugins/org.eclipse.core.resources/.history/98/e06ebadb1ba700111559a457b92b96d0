@@ -1,0 +1,18 @@
+package miniPeople;
+import utilities.util;
+public class miniWoman extends miniPerson{
+    
+    public miniWoman(double [] strength, double [] speed, double [] iq){
+
+        this.strength = strength;
+        this.speed = speed;
+        this.iq = iq;
+
+        
+        this.strength = util.scaleArray(strength, 0.666);
+        this.speed = util.scaleArray(speed, 0.8);
+        this.iq = util.scaleArray(iq, 1.25);
+        
+    }
+    
+}

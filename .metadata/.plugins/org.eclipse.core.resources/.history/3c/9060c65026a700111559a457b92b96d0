@@ -1,0 +1,31 @@
+package miniPeople;
+
+public class miniMan extends miniPerson{
+
+    public miniMan(double [] strength, double [] speed, double [] iq){
+        this.strength = strength;
+        this.speed = speed;
+        this.iq = iq;
+    }
+
+    public miniPerson breed(miniWoman miniW){
+        double manStr = strength[(int)(Math.random() * strength.length)];
+        double manSpd = speed[(int)(Math.random() * speed.length)];
+        double manIq = iq[(int)(Math.random() * iq.length)];
+
+        double womanStr = miniW.strength[(int)(Math.random() * miniW.strength.length)];
+        double womanSpd = miniW.speed[(int)(Math.random() * miniW.speed.length)];
+        double womanIq = miniW.iq[(int)(Math.random() * miniW.iq.length)];
+
+        double [] kidStr = {manStr, womanStr};
+        double [] kidSpd = {manSpd, womanSpd};
+        double [] kidIq = {manIq, womanIq};
+
+        if ((int)(Math.random() * 2) == 0){
+            return new miniMan(kidStr, kidSpd, kidIq);
+        }
+
+        return new miniWoman(kidStr, kidSpd, kidIq);
+    }
+
+}
