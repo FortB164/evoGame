@@ -1,39 +1,49 @@
 package utilities;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 public class util {
     static Random random = new Random();
 
-    public static int[] generateIntArray(int size, int from, int to){
-        return random.ints(size, from, to).toArray();
-    }
-
-
-    public static double[] generateDoubleArray(int size, int from, int to){
-        return random.doubles(size, from, to).toArray();
-    }
-    
-
-    public static double arrayAverage(double [] arr){
-        double temp = 0;
-        for(int i = 0; i < arr.length ; i++){
-            temp+= arr[i];
-        }
-        return temp/arr.length;
-    }
-
     public static <T> void print(T value) {
         System.out.println(value);
     }
+
+    public static ArrayList<Double> generateDoubleArrayList(int size, int from, int to){
+        ArrayList<Double> tempArrList = new ArrayList<>();
+        for(int i = 0; i < size; i++){
+            tempArrList.add(random.nextDouble(from, to));
+        }
+        return tempArrList;
+    }
     
-    public static double[] scaleArray(double[] array, double factor) {
-		double[] adjustedArray = new double[array.length];
-		for (int i = 0; i < array.length; i++) {
-			adjustedArray[i] = array[i] * factor;
+
+    public static double arrayListAverage(ArrayList<Double> arr){
+        double temp = 0;
+        for (Double aDouble : arr) {
+            temp += aDouble;
+        }
+        return temp/arr.size();
+    }
+    
+    public static ArrayList<Double> scaleArrayList(ArrayList<Double> array, double factor) {
+        ArrayList<Double> scaledArrayList = new ArrayList<>();
+		for (int i = 0; i < array.size(); i++) {
+            scaledArrayList.add(i, array.get(i)*factor);
+
 		}
-		return adjustedArray;
+		return scaledArrayList;
 	}
+
+    public static ArrayList<Double> mergeArrayList(ArrayList<Double> array1, ArrayList<Double> array2){
+        ArrayList<Double> mergedArrayList = new ArrayList<>();
+        mergedArrayList.addAll(array1);
+        mergedArrayList.addAll(array2);
+        return mergedArrayList;
+    }
+
+
     
 
 }

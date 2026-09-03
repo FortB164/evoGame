@@ -21,7 +21,6 @@ public class populationBoard {
     public int getPopulationSize() {
         return populationMap.size();
     }
-
     public int getEmptySpaces() {
         return sizeX * sizeY - getPopulationSize();
     }
@@ -34,7 +33,7 @@ public class populationBoard {
         }
     }
     
-    // helper method to check if cooordinate occupied
+    // helper method to check if coordinate occupied
     public boolean isOccupied(int x, int y) {
 		validateCoordinate(x, y);
 		return populationMap.containsKey(new coordinatePair(x, y));

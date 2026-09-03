@@ -11,68 +11,52 @@ public class populationBoardController {
 		this.board = board;
 	}
 	
-	
-	
+
 	public miniPerson getPerson(int x, int y) {
-        board.validateCoordinate(x, y);
-        return board.populationMap.get(new coordinatePair(x, y));
+        if(board.isOccupied(x, y)) return board.populationMap.get(new coordinatePair(x, y));
+        else throw new IllegalArgumentException("Coordinates are empty");
     }
 	
     public void setPerson(miniPerson person, int x, int y) {
-    	board.validateCoordinate(x, y);
-		board.populationMap.put(new coordinatePair(x, y), person);
+    	if(!board.isOccupied(x, y)) board.populationMap.put(new coordinatePair(x, y), person);
+        else throw new IllegalArgumentException("Coordinates are occupied");
 	}
-    
-    public miniPerson removePerson(int x, int y) {
-    	board.validateCoordinate(x, y);
-		return board.populationMap.remove(new coordinatePair(x, y));
-	}
-    
 
-    
+    // when you remove person it also gets the value of it, so you can store it somewhere
+    public miniPerson removePerson(int x, int y) {
+        if(!board.isOccupied(x, y)) return board.populationMap.remove(new coordinatePair(x, y));
+        else throw new IllegalArgumentException("Coordinates are empty");
+	}
+
+
 
     public void movePerson(int oldX, int oldY, int newX, int newY) {
-        if (!board.isOccupied(oldX, oldY)) {
-            throw new IllegalArgumentException("No person at the old coordinates");
-        }
+        if(!board.isOccupied(oldX, oldY))
+            throw new IllegalArgumentException("Old coordinates are not occupied");
 
-        if (board.isOccupied(newX, newY)) {
-            throw new IllegalArgumentException("New coordinates are already occupied");
-        }
+        if(board.isOccupied(newX, newY))
+            throw new IllegalArgumentException("New coordinates already occupied");
 
-        setPerson(removePerson(oldX, oldY) , newX, newY);
+        setPerson(removePerson(oldX, oldY), newX, newY);
     }
 
     public void movePersonByOne(int x, int y, String direction) {
-        board.validateCoordinate(x, y);
-
-        if (!board.isOccupied(x, y)) {
-            throw new IllegalArgumentException("No person at the given coordinates");
-        }
-
-        int newX = x;
-        int newY = y;
 
         switch (direction.toLowerCase()) {
             case "up":
-                newY -= 1;
+                movePerson(x, y, x, y+1);
                 break;
             case "down":
-                newY += 1;
+                movePerson(x, y, x, y-1);
                 break;
             case "left":
-                newX -= 1;
+                movePerson(x-1, y, x, y);
                 break;
             case "right":
-                newX += 1;
+                movePerson(x+1, y, x, y);
                 break;
             default:
                 throw new IllegalArgumentException("Invalid direction. Use 'up', 'down', 'left', or 'right'.");
         }
-
-        movePerson(x, y, newX, newY);
-
     }
-	
-	
 }

@@ -11,18 +11,18 @@ public class generateMiniPerson {
 
         if ((int)(Math.random() * 2) == 0) {
             mp = new miniMan(
-                util.generateDoubleArray(2, 10, 100),
-                util.generateDoubleArray(2, 10, 100),
-                util.generateDoubleArray(2, 10, 100)
+                util.generateDoubleArrayList(2, 10, 100),
+                util.generateDoubleArrayList(2, 10, 100),
+                util.generateDoubleArrayList(2, 10, 100)
             );
 
         }
         
         else {
             mp = new miniWoman(
-                util.generateDoubleArray(2, 10, 100),
-                util.generateDoubleArray(2, 10, 100),
-                util.generateDoubleArray(2, 10, 100)
+                util.generateDoubleArrayList(2, 10, 100),
+                util.generateDoubleArrayList(2, 10, 100),
+                util.generateDoubleArrayList(2, 10, 100)
             );
         }
 
