@@ -21,23 +21,35 @@ public class populationBoard {
     public int getPopulationSize() {
         return populationMap.size();
     }
-
     public int getEmptySpaces() {
         return sizeX * sizeY - getPopulationSize();
     }
 
 
     // helper method to validate coordinates
-    public void validateCoordinate(int x, int y) {
-        if (x < 0 || x >= sizeX || y < 0 || y >= sizeY) {
+    public void validateCoordinate(coordinatePair pair) {
+        if (pair.getX() < 0 || pair.getX() >= sizeX || pair.getY() < 0 || pair.getY() >= sizeY) {
             throw new IllegalArgumentException("Coordinates out of bounds");
         }
     }
     
-    // helper method to check if cooordinate occupied
-    public boolean isOccupied(int x, int y) {
-		validateCoordinate(x, y);
-		return populationMap.containsKey(new coordinatePair(x, y));
+    // helper method to check if coordinate occupied
+    public boolean isOccupied(coordinatePair pair) {
+		validateCoordinate(pair);
+		return populationMap.containsKey(pair);
 	}
+
+    // dont use these. These are only encapsulations for the board controller
+    public miniPerson getAtCoordinates(coordinatePair pair) {
+        return populationMap.get(pair);
+    }
+
+    public void putAtCoordinates( miniPerson person, coordinatePair pair) {
+        populationMap.put(pair, person);
+    }
+
+    public miniPerson removeAtCoordinates(coordinatePair pair) {
+        return populationMap.remove(pair);
+    }
 
 }
