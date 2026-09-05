@@ -1,11 +1,12 @@
 package populationBoard;
-import miniPeople.miniPerson;
 import java.util.HashMap;
+
+import miniPeople.miniPerson;
 
 public class populationBoard {
 
-    int sizeX;
-    int sizeY;
+    private int sizeX;
+    private int sizeY;
 
     HashMap <coordinatePair, miniPerson> populationMap;
 

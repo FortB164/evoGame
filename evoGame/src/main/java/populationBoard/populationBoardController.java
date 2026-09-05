@@ -1,11 +1,11 @@
 package populationBoard;
 
+import java.util.Random;
+
 import miniPeople.miniMan;
 import miniPeople.miniPerson;
 import miniPeople.miniWoman;
 import utilities.util;
-
-import java.util.Random;
 
 public class populationBoardController {
 
@@ -38,7 +38,7 @@ public class populationBoardController {
     // when you remove person it also gets the value of it, so you can store it somewhere
     public miniPerson removePerson(coordinatePair pair) {
 
-        if(!board.isOccupied(pair)){
+        if(board.isOccupied(pair)){
             return board.removeAtCoordinates(pair);
         }
 
