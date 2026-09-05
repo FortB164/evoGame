@@ -1,5 +1,6 @@
 package miniPeople;
 import java.util.ArrayList;
+
 import static utilities.util.mergeArrayList;
 
 public class miniMan extends miniPerson{
@@ -18,8 +19,8 @@ public class miniMan extends miniPerson{
         if(mp1.getGender() == mp2.getGender()) fight(mp1, mp2);
 
         ArrayList<Double> mergedStrength =  mergeArrayList(mp1.strength, mp2.strength);
-        ArrayList<Double> mergedSpeed =  mergeArrayList(mp1.strength, mp2.strength);
-        ArrayList<Double> mergedIq =  mergeArrayList(mp1.strength, mp2.strength);
+        ArrayList<Double> mergedSpeed =  mergeArrayList(mp1.speed, mp2.speed);
+        ArrayList<Double> mergedIq =  mergeArrayList(mp1.iq, mp2.iq);
 
         return null;
     }
