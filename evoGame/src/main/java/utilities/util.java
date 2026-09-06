@@ -4,13 +4,13 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class util {
-    static Random random = new Random();
 
     public static <T> void print(T value) {
         System.out.println(value);
     }
 
     public static ArrayList<Double> generateDoubleArrayList(int size, int from, int to){
+        Random random = new Random();
         ArrayList<Double> tempArrList = new ArrayList<>();
         for(int i = 0; i < size; i++){
             tempArrList.add(random.nextDouble(from, to));

@@ -5,9 +5,9 @@ import java.util.ArrayList;
 
 public abstract class miniPerson{
     
-    ArrayList<Double> strength = new ArrayList<>();
-    ArrayList<Double> speed = new ArrayList<>();
-    ArrayList<Double> iq = new ArrayList<>();
+    public ArrayList<Double> strength = new ArrayList<>();
+    public ArrayList<Double> speed = new ArrayList<>();
+    public ArrayList<Double> iq = new ArrayList<>();
 
     public miniPerson(){
     }
