@@ -3,9 +3,9 @@ import utilities.util;
 
 import java.util.ArrayList;
 
-public class miniWoman extends miniPerson{
+public class MiniWoman extends MiniPerson {
     
-    public miniWoman(ArrayList<Double> strength, ArrayList<Double> speed, ArrayList<Double> iq){
+    public MiniWoman(ArrayList<Double> strength, ArrayList<Double> speed, ArrayList<Double> iq){
 
         this.strength = strength;
         this.speed = speed;
@@ -18,11 +18,11 @@ public class miniWoman extends miniPerson{
         
     }
 
-    public void fight(miniPerson mp1, miniPerson mp2){
+    public void fight(MiniPerson mp){
 
     }
 
-    public miniPerson breed(miniPerson mp1, miniPerson mp2){
+    public MiniPerson breed(MiniPerson mp){
         return null;
     }
     

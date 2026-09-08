@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Directory Tree: evoGame</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f8f9fa;
+            padding: 20px;
+            color: #1e1e1e;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 20px 30px;
+        }
+        h1 {
+            font-size: 1.8rem;
+            margin-bottom: 0.2rem;
+        }
+        .subtitle {
+            color: #6c757d;
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
+            word-break: break-all;
+        }
+        .toolbar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #dee2e6;
+        }
+        .toolbar input[type="text"] {
+            flex: 1 1 300px;
+            padding: 8px 12px;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+        .toolbar input[type="text"]:focus {
+            border-color: #80bdff;
+            outline: 0;
+            box-shadow: 0 0 0 0.2rem rgba(0,123,255,0.25);
+        }
+        .toolbar button {
+            padding: 8px 16px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: background 0.15s;
+        }
+        .toolbar button:hover {
+            background: #0069d9;
+        }
+        .toolbar .stats {
+            margin-left: auto;
+            font-size: 0.9rem;
+            color: #6c757d;
+        }
+        #results {
+            margin-bottom: 16px;
+            padding: 12px 16px;
+            background: #e9ecef;
+            border-radius: 4px;
+            display: none;
+            max-height: 200px;
+            overflow-y: auto;
+            font-size: 0.9rem;
+        }
+        #results.show {
+            display: block;
+        }
+        #results .match-item {
+            padding: 4px 0;
+            border-bottom: 1px solid #dee2e6;
+        }
+        #results .match-item:last-child {
+            border-bottom: none;
+        }
+        .tree { font-family: 'Consolas', 'Courier New', monospace; }
+        .tree ul {
+            list-style: none;
+            padding-left: 24px;
+            border-left: 1px dotted #dee2e6;
+            margin-left: 8px;
+        }
+        .tree li {
+            position: relative;
+            padding: 2px 0 2px 8px;
+        }
+        .tree li::before {
+            content: "";
+            position: absolute;
+            left: -20px;
+            top: 0;
+            bottom: 0;
+            width: 20px;
+            border-bottom: 1px dotted #dee2e6;
+        }
+        .tree li:last-child::before {
+            border-bottom: none;
+        }
+        .tree .node {
+            display: inline-block;
+            padding: 2px 4px;
+            border-radius: 3px;
+            cursor: default;
+        }
+        .tree .node:hover {
+            background: #f1f3f5;
+        }
+        .tree .dir > .node {
+            cursor: pointer;
+            font-weight: 500;
+        }
+        .tree .dir > .node .toggle {
+            display: inline-block;
+            width: 16px;
+            text-align: center;
+            font-weight: bold;
+            color: #495057;
+        }
+        .tree .dir.collapsed > ul {
+            display: none;
+        }
+        .tree .file .node {
+            color: #2c3e50;
+        }
+        .tree .highlight > .node {
+            background: #fff3cd;
+            border: 1px solid #ffc107;
+            padding: 1px 3px;
+        }
+        .tree .match-path {
+            margin-left: 12px;
+            color: #6c757d;
+            font-size: 0.8rem;
+        }
+        .tree .children-empty {
+            color: #adb5bd;
+            font-style: italic;
+            margin-left: 12px;
+        }
+        ul, li { display: block; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📁 evoGame</h1>
+        <div class="subtitle">/home/tanmay/Documents/Code/evoGame/evoGame</div>
+
+        <div class="toolbar">
+            <input type="text" id="searchInput" placeholder="Regex search (e.g. test.*.py$)" title="Enter a regular expression to filter file/folder names">
+            <button id="expandAllBtn">Expand All</button>
+            <button id="collapseAllBtn">Collapse All</button>
+            <span class="stats" id="stats"></span>
+        </div>
+
+        <div id="results"></div>
+
+        <div class="tree" id="treeContainer"></div>
+    </div>
+
+    <script>
+        const treeData = {"name": "evoGame", "type": "dir", "path": "", "children": [{"name": "src", "type": "dir", "path": "src", "children": [{"name": "main", "type": "dir", "path": "src/main", "children": [{"name": "java", "type": "dir", "path": "src/main/java", "children": [{"name": "game", "type": "dir", "path": "src/main/java/game", "children": [{"name": "Game.java", "type": "file", "path": "src/main/java/game/Game.java", "children": []}]}, {"name": "miniPeople", "type": "dir", "path": "src/main/java/miniPeople", "children": [{"name": "Gender.java", "type": "file", "path": "src/main/java/miniPeople/Gender.java", "children": []}, {"name": "MiniMan.java", "type": "file", "path": "src/main/java/miniPeople/MiniMan.java", "children": []}, {"name": "MiniPerson.java", "type": "file", "path": "src/main/java/miniPeople/MiniPerson.java", "children": []}, {"name": "MiniWoman.java", "type": "file", "path": "src/main/java/miniPeople/MiniWoman.java", "children": []}]}, {"name": "populationBoard", "type": "dir", "path": "src/main/java/populationBoard", "children": [{"name": "CoordinatePair.java", "type": "file", "path": "src/main/java/populationBoard/CoordinatePair.java", "children": []}, {"name": "Direction.java", "type": "file", "path": "src/main/java/populationBoard/Direction.java", "children": []}, {"name": "PopulationBoard.java", "type": "file", "path": "src/main/java/populationBoard/PopulationBoard.java", "children": []}, {"name": "PopulationBoardController.java", "type": "file", "path": "src/main/java/populationBoard/PopulationBoardController.java", "children": []}]}, {"name": "utilities", "type": "dir", "path": "src/main/java/utilities", "children": [{"name": "util.java", "type": "file", "path": "src/main/java/utilities/util.java", "children": []}]}, {"name": "main.java", "type": "file", "path": "src/main/java/main.java", "children": []}]}]}]}, {"name": "mvnw", "type": "file", "path": "mvnw", "children": []}, {"name": "mvnw.cmd", "type": "file", "path": "mvnw.cmd", "children": []}, {"name": "pom.xml", "type": "file", "path": "pom.xml", "children": []}, {"name": "script.py", "type": "file", "path": "script.py", "children": []}, {"name": "tree.html", "type": "file", "path": "tree.html", "children": []}]};
+
+        function createNode(data) {
+            const li = document.createElement('li');
+            li.dataset.path = data.path;
+            li.dataset.type = data.type;
+            li.dataset.name = data.name;
+
+            const nodeSpan = document.createElement('span');
+            nodeSpan.className = 'node';
+
+            if (data.type === 'dir') {
+                li.classList.add('dir');
+                const toggle = document.createElement('span');
+                toggle.className = 'toggle';
+                toggle.textContent = '▾';
+                nodeSpan.appendChild(toggle);
+                nodeSpan.append(' ' + data.name + '/');
+
+                nodeSpan.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    li.classList.toggle('collapsed');
+                    const isCollapsed = li.classList.contains('collapsed');
+                    toggle.textContent = isCollapsed ? '▸' : '▾';
+                });
+
+                // Append folder name BEFORE its children
+                li.appendChild(nodeSpan);
+
+                const ul = document.createElement('ul');
+                if (data.children && data.children.length > 0) {
+                    // Keep the original order (directories first, then files)
+                    for (let i = 0; i < data.children.length; i++) {
+                        ul.appendChild(createNode(data.children[i]));
+                    }
+                } else {
+                    const empty = document.createElement('span');
+                    empty.className = 'children-empty';
+                    empty.textContent = 'empty';
+                    ul.appendChild(empty);
+                }
+                li.appendChild(ul);
+            } else {
+                li.classList.add('file');
+                nodeSpan.textContent = data.name;
+                li.appendChild(nodeSpan);
+            }
+
+            return li;
+        }
+
+        const rootLi = createNode(treeData);
+        const rootUl = document.createElement('ul');
+        rootUl.appendChild(rootLi);
+        document.getElementById('treeContainer').appendChild(rootUl);
+
+        // Flatten for search
+        const allNodes = [];
+        function flatten(node, element) {
+            allNodes.push({
+                data: node,
+                element: element,
+                path: node.path,
+                name: node.name,
+                type: node.type,
+            });
+            if (node.type === 'dir' && node.children) {
+                const childUl = element.querySelector('ul');
+                if (childUl) {
+                    const childLis = childUl.querySelectorAll(':scope > li');
+                    for (let i = 0; i < node.children.length; i++) {
+                        if (i < childLis.length) {
+                            flatten(node.children[i], childLis[i]);
+                        }
+                    }
+                }
+            }
+        }
+        flatten(treeData, rootLi);
+
+        // Stats
+        const totalDirs = allNodes.filter(n => n.type === 'dir').length;
+        const totalFiles = allNodes.filter(n => n.type === 'file').length;
+        document.getElementById('stats').textContent = `${totalDirs} dirs, ${totalFiles} files`;
+
+        // Search
+        const searchInput = document.getElementById('searchInput');
+        const resultsDiv = document.getElementById('results');
+
+        function getAncestors(element) {
+            const ancestors = [];
+            let el = element.parentElement;
+            while (el) {
+                if (el.tagName === 'LI' && el.classList.contains('dir')) {
+                    ancestors.push(el);
+                }
+                el = el.parentElement;
+            }
+            return ancestors;
+        }
+
+        function performSearch() {
+            const pattern = searchInput.value.trim();
+            allNodes.forEach(n => {
+                n.element.classList.remove('highlight');
+                const pathSpan = n.element.querySelector('.match-path');
+                if (pathSpan) pathSpan.remove();
+            });
+            resultsDiv.classList.remove('show');
+            resultsDiv.innerHTML = '';
+
+            if (pattern === '') return;
+
+            let regex;
+            try {
+                regex = new RegExp(pattern);
+            } catch (e) {
+                resultsDiv.textContent = 'Invalid regex: ' + e.message;
+                resultsDiv.classList.add('show');
+                return;
+            }
+
+            const matches = allNodes.filter(n => regex.test(n.name));
+
+            if (matches.length === 0) {
+                resultsDiv.textContent = 'No matches found.';
+                resultsDiv.classList.add('show');
+                return;
+            }
+
+            let resultHtml = '<strong>Matches:</strong><br>';
+            matches.forEach(n => {
+                resultHtml += `<div class="match-item">${n.path || '/'}</div>`;
+                n.element.classList.add('highlight');
+                const ancestors = getAncestors(n.element);
+                ancestors.forEach(anc => {
+                    anc.classList.remove('collapsed');
+                    const toggle = anc.querySelector('.toggle');
+                    if (toggle) toggle.textContent = '▾';
+                });
+                const pathSpan = document.createElement('span');
+                pathSpan.className = 'match-path';
+                pathSpan.textContent = n.path || '/';
+                n.element.appendChild(pathSpan);
+            });
+            resultsDiv.innerHTML = resultHtml;
+            resultsDiv.classList.add('show');
+        }
+
+        searchInput.addEventListener('input', performSearch);
+
+        document.getElementById('expandAllBtn').addEventListener('click', function() {
+            document.querySelectorAll('.dir.collapsed').forEach(el => {
+                el.classList.remove('collapsed');
+                const toggle = el.querySelector('.toggle');
+                if (toggle) toggle.textContent = '▾';
+            });
+        });
+
+        document.getElementById('collapseAllBtn').addEventListener('click', function() {
+            document.querySelectorAll('.dir:not(.collapsed)').forEach(el => {
+                el.classList.add('collapsed');
+                const toggle = el.querySelector('.toggle');
+                if (toggle) toggle.textContent = '▸';
+            });
+        });
+
+        // Collapse all subdirectories initially (root stays expanded)
+        document.querySelectorAll('.dir').forEach(el => {
+            if (el !== rootLi) {
+                el.classList.add('collapsed');
+                const toggle = el.querySelector('.toggle');
+                if (toggle) toggle.textContent = '▸';
+            }
+        });
+    </script>
+</body>
+</html>

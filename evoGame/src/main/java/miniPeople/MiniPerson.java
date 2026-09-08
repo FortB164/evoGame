@@ -3,13 +3,13 @@ import utilities.util;
 
 import java.util.ArrayList;
 
-public abstract class miniPerson{
+public abstract class MiniPerson {
     
     public ArrayList<Double> strength = new ArrayList<>();
     public ArrayList<Double> speed = new ArrayList<>();
     public ArrayList<Double> iq = new ArrayList<>();
 
-    public miniPerson(){
+    public MiniPerson(){
     }
 
     public String getAveragedStats(){
@@ -19,11 +19,11 @@ public abstract class miniPerson{
     }
 
     public Gender getGender(){
-        if (this instanceof miniMan) return Gender.MALE;
-        else if (this instanceof miniWoman) return Gender.FEMALE;
+        if (this instanceof MiniMan) return Gender.MALE;
+        else if (this instanceof MiniWoman) return Gender.FEMALE;
         return Gender.NULL;
     }
     
-    public abstract void fight(miniPerson mp1, miniPerson mp2);
-    public abstract miniPerson breed(miniPerson mp1, miniPerson mp2);
+    public abstract void fight(MiniPerson mp);
+    public abstract MiniPerson breed(MiniPerson mp);
 }

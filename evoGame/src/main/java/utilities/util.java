@@ -6,7 +6,13 @@ import java.util.Random;
 public class util {
 
     public static <T> void print(T value) {
+        System.out.print(value);
+    }
+    public static <T> void println(T value) {
         System.out.println(value);
+    }
+    public static <T> void print() {
+        System.out.println();
     }
 
     public static ArrayList<Double> generateDoubleArrayList(int size, int from, int to){
