@@ -1,4 +1,4 @@
-package populationBoard;
+package populationBoard.dataObjects;
 
 public enum Direction {
     UP(0, 1),

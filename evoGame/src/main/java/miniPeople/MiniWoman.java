@@ -1,5 +1,5 @@
 package miniPeople;
-import utilities.util;
+import utilities.listHelper;
 
 import java.util.ArrayList;
 
@@ -12,9 +12,9 @@ public class MiniWoman extends MiniPerson {
         this.iq = iq;
 
         
-        this.strength = util.scaleArrayList(strength, 0.666);
-        this.speed = util.scaleArrayList(speed, 0.8);
-        this.iq = util.scaleArrayList(iq, 1.25);
+        this.strength = listHelper.scaleArrayList(strength, 0.666);
+        this.speed = listHelper.scaleArrayList(speed, 0.8);
+        this.iq = listHelper.scaleArrayList(iq, 1.25);
         
     }
 

@@ -1,4 +1,4 @@
-package populationBoard;
+package populationBoard.dataObjects;
 
 public class CoordinatePair {
 	int x;

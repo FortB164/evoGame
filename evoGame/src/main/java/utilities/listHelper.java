@@ -3,7 +3,7 @@ package utilities;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class util {
+public class listHelper {
 
     public static <T> void print(T value) {
         System.out.print(value);
@@ -23,7 +23,6 @@ public class util {
         }
         return tempArrList;
     }
-    
 
     public static double arrayListAverage(ArrayList<Double> arr){
         double temp = 0;
@@ -48,8 +47,5 @@ public class util {
         mergedArrayList.addAll(array2);
         return mergedArrayList;
     }
-
-
-    
 
 }

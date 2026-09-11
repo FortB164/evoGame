@@ -4,7 +4,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.Random;
 
-import static utilities.util.mergeArrayList;
+import static utilities.listHelper.mergeArrayList;
 
 public class MiniMan extends MiniPerson {
 

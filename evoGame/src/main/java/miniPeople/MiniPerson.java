@@ -1,5 +1,6 @@
 package miniPeople;
-import utilities.util;
+import miniPeople.dataObjects.Gender;
+import utilities.listHelper;
 
 import java.util.ArrayList;
 
@@ -13,9 +14,9 @@ public abstract class MiniPerson {
     }
 
     public String getAveragedStats(){
-        return "Strength: " + (util.arrayListAverage(strength)) + "\n" +
-                "Speed: " + (util.arrayListAverage(speed)) + "\n" +
-                "IQ: " + (util.arrayListAverage(iq));
+        return "Strength: " + (listHelper.arrayListAverage(strength)) + "\n" +
+                "Speed: " + (listHelper.arrayListAverage(speed)) + "\n" +
+                "IQ: " + (listHelper.arrayListAverage(iq));
     }
 
     public Gender getGender(){
