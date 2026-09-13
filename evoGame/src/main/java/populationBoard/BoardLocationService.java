@@ -1,12 +1,15 @@
 package populationBoard;
 
-import miniPeople.MiniPerson;
+import java.util.ArrayList;
+import java.util.Random;
+
 import org.jetbrains.annotations.NotNull;
+
+import miniPeople.MiniPerson;
 import populationBoard.dataObjects.Board;
 import populationBoard.dataObjects.CoordinatePair;
 import populationBoard.dataObjects.Direction;
-
-import java.util.*;
+import utilities.listHelper;
 
 public class BoardLocationService {
 
@@ -82,6 +85,14 @@ public class BoardLocationService {
         movePerson(pair, newPair);
     }
 
+    public void movePersonBySpeed(CoordinatePair pair, @NotNull Direction direction) {
+        int speed = (int) listHelper.arrayListAverage(getPerson(pair).speed);
+        int newX = pair.getX() + direction.getX(speed);
+        int newY = pair.getY() + direction.getY(speed);
+        CoordinatePair newPair = new CoordinatePair(newX, newY);
+        movePerson(pair, newPair);
+    }
+
     // gets unused spaces on the board
     public ArrayList<CoordinatePair> getEmptySpaces(){
         ArrayList<CoordinatePair> emptySpaces = new ArrayList<>();
@@ -97,9 +108,15 @@ public class BoardLocationService {
 
     // generates random coordinates from available spaces
     public CoordinatePair generateRandomCoordinates() {
+        if(!hasAvailableSpace()) {
+            throw new IllegalStateException("No available space to generate random coordinates");
+        }
         Random random = new Random();
-        int rand = random.nextInt(emptySpaces.size());
-        return emptySpaces.get(rand);
+        return emptySpaces.get(random.nextInt(emptySpaces.size()));
+    }
+
+    public boolean hasAvailableSpace() {
+        return (!emptySpaces.isEmpty() && validator.spaceAvailable());
     }
 
 }

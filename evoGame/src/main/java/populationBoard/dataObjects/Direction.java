@@ -6,6 +6,7 @@ public enum Direction {
     RIGHT(1, 0),
     LEFT(-1, 0);
 
+
     private final int x;
     private final int y;
 
@@ -20,5 +21,13 @@ public enum Direction {
 
     public int getY() {
         return y;
+    }
+
+    public int getX(int speed){
+        return x*speed;
+    }
+
+    public int getY(int speed){
+        return y*speed;
     }
 }
