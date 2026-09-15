@@ -8,15 +8,27 @@ import java.util.Set;
 import org.jetbrains.annotations.NotNull;
 
 import miniPeople.MiniPerson;
+import miniPeople.dataObjects.Gender;
 import populationBoard.dataObjects.Board;
 import populationBoard.dataObjects.CoordinatePair;
 import populationBoard.dataObjects.Direction;
+import utilities.Logger;
 import utilities.personHelper;
+
 
 public class BoardController {
 
     Board board;
     BoardLocationService locationService;
+    public HashMap<MiniPerson, String> names =  new HashMap<>();
+    Logger logger = Logger.getLogger();
+    // monotonically increasing so names are never reused once a person dies
+    int maleNameCounter = 0;
+    int femaleNameCounter = 0;
+
+    // board stores by coordinates -> person
+    // names stores by person -> name
+    // so to get the name, we first get the coordinates, then the person, then the name
 
     public BoardController(Board board) {
         this.board = board;
@@ -30,15 +42,51 @@ public class BoardController {
         }
 
         for(int i = 0 ; i < count; i++) {
-            locationService.setPerson(personHelper.generateMiniPerson(), locationService.generateRandomCoordinates());
+
+            MiniPerson mp = personHelper.generateMiniPerson();
+            CoordinatePair pair = locationService.generateRandomCoordinates();
+
+            String name = assignName(mp);
+
+            names.put(mp, name);
+            locationService.setPerson(pair, mp);
+
+            logger.addAction(names.get(mp) + " added to board");
         }
+    }
+
+    public String assignName(MiniPerson mp){
+        if (mp.getGender() == Gender.MALE) {
+            maleNameCounter++;
+            return "M" + maleNameCounter;
+        }
+        femaleNameCounter++;
+        return "F" + femaleNameCounter;
+    }
+
+    // method to count genders. Gives answer in array of {Male, Female}
+    public int[] genderCount(){
+
+        int [] genderCount = new int [2];
+
+        HashMap<CoordinatePair, MiniPerson> hs = board.getPopulationMap();
+
+        for(MiniPerson mp : hs.values()){
+            if(mp.getGender() == Gender.MALE){
+                genderCount[0]++;
+                continue;
+            }
+            genderCount[1]++;
+        }
+
+        return genderCount;
     }
 
     public void moveAllRandomly(){
 
         Random random = new  Random();
         HashMap<CoordinatePair, MiniPerson> hs = board.getPopulationMap();
-        Set<CoordinatePair> keysCopy = new HashSet<>(hs.keySet()); // iterate over key cope not original other concurrent access problem
+        Set<CoordinatePair> keysCopy = new HashSet<>(hs.keySet()); // iterate over key copy not original other concurrent access problem
         HashSet<MiniPerson> hasMoved = new HashSet<>(); // record of who moved
 
 
@@ -63,6 +111,7 @@ public class BoardController {
                 // attempt breeding immediately, as it counts as collision
                 if(msg.equals("Cannot move person. Target coordinates are occupied")){
                     collision = true;
+                    logger.addAction(names.get(locationService.getPerson(pair)) + " has collided with " + names.get(locationService.getPerson(newPair)) + ".");
                     handleBreeding(pair,direction);
                 }
             }
@@ -95,7 +144,11 @@ public class BoardController {
         if (person == null) return;
 
         person.lifespan--;
-        if (person.lifespan < 1) locationService.removePerson(pair);
+        if (person.lifespan < 1){
+            logger.addAction(names.get(locationService.getPerson(pair)) + " has died of old age. Their stats were: " + locationService.getPerson(pair).getAveragedStats());
+            locationService.removePerson(pair);
+
+        }
     }
 
     public void handleBreeding(@NotNull CoordinatePair pair, @NotNull Direction direction){
@@ -107,17 +160,26 @@ public class BoardController {
         MiniPerson parent1 = locationService.getPerson(pair);
         MiniPerson parent2 = locationService.getPerson(newPair);
 
-        // only 60% chance for breeding to succeed
-        Random random = new  Random();
-        int k = random.nextInt(100);
-        if(k > 40){
-            MiniPerson child = parent1.breed(parent2);
+        if(parent1 == null || parent2 == null) return;
 
-            if(child == null) handleFights(pair, newPair); // if both genders are same, breeding not possible so they fight instead
-            else if (locationService.hasAvailableSpace()) {
-                locationService.setPerson(child, locationService.generateRandomCoordinates()); // if breeding successful, add child to random coords
-            }
+
+        if(parent1.getGender() == parent2.getGender()){
+            logger.addAction(names.get(parent1) + " and " +  names.get(parent2) + " are the same gender. A fight has broken out!");
+            handleFights(pair, newPair);
+            // one of the two same-gender combatants is now dead, so breeding cannot happen
+            return;
         }
+
+        MiniPerson child = parent1.breed(parent2);
+        if(child == null) logger.addAction("Breeding between " + names.get(parent1) + " and " + names.get(parent2) + "has failed.");
+        else if (locationService.hasAvailableSpace()) {
+                CoordinatePair childPair = locationService.generateRandomCoordinates();
+                locationService.setPerson(childPair, child);
+                names.put(child, assignName(child));
+                logger.addAction("A child of " + names.get(parent1) + " and " + names.get(parent2) + " is born at" + childPair.toString());
+                // if breeding successful, add child to random coords
+        }
+
     }
 
     public void handleFights(CoordinatePair pair1, CoordinatePair pair2){
@@ -128,14 +190,18 @@ public class BoardController {
         MiniPerson[] winnerLoser = mp1.fight(mp2);
 
         // first index is winner, last is loser
-        // if first index is mp1, then remove mp2
+        // if first index is mp1, remove mp2
+
         if(winnerLoser[0].equals(mp1)){
             locationService.removePerson(pair2);
         }
-        // and if first index is mp2, remove mp1
-        else if (winnerLoser[0].equals(mp2)) {
+
+        // otherwise the first index would be mp2, in which case remove mp1
+        else {
             locationService.removePerson(pair1);
         }
+
+        logger.addAction(names.get(winnerLoser[0]) + " has killed " + names.get(winnerLoser[1]) + ".");
 
     }
 

@@ -6,12 +6,13 @@ import org.jetbrains.annotations.NotNull;
 
 import miniPeople.dataObjects.Gender;
 import utilities.listHelper;
+
 import static utilities.listHelper.mergeArrayList;
 
 public abstract class MiniPerson {
 
-    Gender gender = this instanceof MiniMan ? Gender.MALE : this instanceof MiniWoman ? Gender.FEMALE : Gender.NULL;
-    
+    Gender gender = this instanceof MiniMan ? Gender.MALE : Gender.FEMALE;
+
     public ArrayList<Double> strength = new ArrayList<>();
     public ArrayList<Double> speed = new ArrayList<>();
     public ArrayList<Double> iq = new ArrayList<>();
@@ -52,10 +53,6 @@ public abstract class MiniPerson {
 
 
     public MiniPerson breed(@NotNull MiniPerson mp) {
-        if (this.getGender() == mp.getGender()){
-            return null;
-        }
-
         ArrayList<Double> mergedStrength =  mergeArrayList(this.strength, mp.strength);
         ArrayList<Double> mergedSpeed =  mergeArrayList(this.speed, mp.speed);
         ArrayList<Double> mergedIq =  mergeArrayList(this.iq, mp.iq);
@@ -83,18 +80,35 @@ public abstract class MiniPerson {
             kidIq.add(randomFromMerged);
         }
 
-        if ((random.nextInt(0, 2) == 0)) {
-            return new MiniMan(
+        int k = random.nextInt(100);
+
+        /*
+        if random bound is 100, possible numbers are 0 to 99
+
+        k above 40 means 40 to 99 which is only 59, so 59% chance only not 60
+
+        so do above 39
+
+        only 60% chance for breeding to succeed
+         */
+
+        if(k > 39){
+            if ((random.nextInt(0, 2) == 0)) {
+                return new MiniMan(
+                        kidStr,
+                        kidSpd,
+                        kidIq
+                );
+            }
+
+            else return new MiniWoman(
                     kidStr,
                     kidSpd,
                     kidIq
             );
         }
 
-        else return new MiniWoman(
-                kidStr,
-                kidSpd,
-                kidIq
-        );
+        return null;
+
     }
 }

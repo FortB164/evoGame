@@ -16,13 +16,13 @@ public class personHelper {
         if (randomGender== 0) {
             mp = new MiniMan(
                     listHelper.generateDoubleArrayList(5, 10, 100),
-                    listHelper.generateDoubleArrayList(5, 10, 100),
+                    listHelper.generateDoubleArrayList(5, 1, 5),
                     listHelper.generateDoubleArrayList(5, 10, 100)
             );
         } else {
             mp = new MiniWoman(
                     listHelper.generateDoubleArrayList(5, 10, 100),
-                    listHelper.generateDoubleArrayList(5, 10, 100),
+                    listHelper.generateDoubleArrayList(5, 1, 5),
                     listHelper.generateDoubleArrayList(5, 10, 100)
             );
         }

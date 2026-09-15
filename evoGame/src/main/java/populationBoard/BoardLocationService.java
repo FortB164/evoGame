@@ -32,7 +32,7 @@ public class BoardLocationService {
         return board.getPopulationMap().get(pair);
     }
 
-    public void setPerson(MiniPerson person, CoordinatePair pair) {
+    public void setPerson(CoordinatePair pair, MiniPerson person) {
         if(!validator.coordinatesValid(pair)) {
             throw new IllegalArgumentException("Cannot set person. Invalid coordinates");
         }
@@ -75,7 +75,7 @@ public class BoardLocationService {
         if(validator.coordinatesOccupied(newPair)) {
             throw new IllegalArgumentException("Cannot move person. Target coordinates are occupied");
         }
-        setPerson(removePerson(oldPair), newPair);
+        setPerson(newPair, removePerson(oldPair));
     }
 
     public void movePersonByOne(CoordinatePair pair, @NotNull Direction direction) {

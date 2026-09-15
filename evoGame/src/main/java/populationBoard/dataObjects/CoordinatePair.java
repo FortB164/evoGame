@@ -16,6 +16,10 @@ public class CoordinatePair {
 	public int getY(){
 		return y;
 	}
+
+	public String toString(){
+		return "(" + x + ", " + y + ")";
+	}
 	
 	@Override
 	public boolean equals(Object obj) {
