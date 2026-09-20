@@ -5,9 +5,9 @@ import java.util.Random;
 import org.jetbrains.annotations.NotNull;
 
 import miniPeople.dataObjects.Gender;
-import utilities.listHelper;
+import utilities.ListHelper;
 
-import static utilities.listHelper.mergeArrayList;
+import static utilities.ListHelper.mergeArrayList;
 
 public abstract class MiniPerson {
 
@@ -23,9 +23,9 @@ public abstract class MiniPerson {
     }
 
     public String getAveragedStats(){
-        return "Strength: " + (listHelper.arrayListAverage(strength)) + "\n" +
-                "Speed: " + (listHelper.arrayListAverage(speed)) + "\n" +
-                "IQ: " + (listHelper.arrayListAverage(iq));
+        return "Strength: " + (ListHelper.arrayListAverage(strength)) + "\n" +
+                "Speed: " + (ListHelper.arrayListAverage(speed)) + "\n" +
+                "IQ: " + (ListHelper.arrayListAverage(iq));
     }
 
     public Gender getGender(){
@@ -35,15 +35,15 @@ public abstract class MiniPerson {
     public MiniPerson[] fight(MiniPerson mp){
 
         Random random = new Random();
-        double strengthA = listHelper.arrayListAverage(this.strength);
-        double strengthB = listHelper.arrayListAverage(mp.strength);
+        double strengthA = ListHelper.arrayListAverage(this.strength);
+        double strengthB = ListHelper.arrayListAverage(mp.strength);
 
         double totalStrength = strengthA + strengthB;
         double roll = random.nextDouble()*totalStrength;
 
 
         // winner is in array[0] and loser is in array[1]
-        if(roll <= listHelper.arrayListAverage(this.strength)){
+        if(roll <= ListHelper.arrayListAverage(this.strength)){
             return new MiniPerson[] {this, mp};
         }
 

@@ -9,7 +9,7 @@ import miniPeople.MiniPerson;
 import populationBoard.dataObjects.Board;
 import populationBoard.dataObjects.CoordinatePair;
 import populationBoard.dataObjects.Direction;
-import utilities.listHelper;
+import utilities.ListHelper;
 
 public class BoardLocationService {
 
@@ -86,7 +86,7 @@ public class BoardLocationService {
     }
 
     public void movePersonBySpeed(CoordinatePair pair, @NotNull Direction direction) {
-        int speed = (int) listHelper.arrayListAverage(getPerson(pair).speed);
+        int speed = (int) ListHelper.arrayListAverage(getPerson(pair).speed);
         int newX = pair.getX() + direction.getX(speed);
         int newY = pair.getY() + direction.getY(speed);
         CoordinatePair newPair = new CoordinatePair(newX, newY);

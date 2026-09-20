@@ -1,6 +1,6 @@
 package utilities;
 
-public class printHelper {
+public class PrintHelper {
     public static <T> void print(T value) {
         System.out.print(value);
     }

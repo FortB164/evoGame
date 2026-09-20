@@ -3,7 +3,7 @@ package utilities;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class listHelper {
+public class ListHelper {
 
     public static ArrayList<Double> generateDoubleArrayList(int size, int from, int to){
         Random random = new Random();

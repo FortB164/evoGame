@@ -18,8 +18,8 @@ import miniPeople.dataObjects.Gender;
 import populationBoard.BoardController;
 import populationBoard.dataObjects.Board;
 import populationBoard.dataObjects.CoordinatePair;
-import static utilities.printHelper.print;
-import static utilities.printHelper.println;
+import static utilities.PrintHelper.print;
+import static utilities.PrintHelper.println;
 
 
 public class Game {
@@ -169,7 +169,7 @@ public class Game {
 
                         for (CoordinatePair cp : hs.keySet()) {
                             MiniPerson mp = hs.get(cp);
-                            String symbol = controller.names.get(mp);
+                            String symbol = controller.names.getNameOf(mp);
                             Color color = mp.getGender() == Gender.MALE ? Color.BLUE : Color.RED;
 
                             if (symbol != null) {
