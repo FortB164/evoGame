@@ -22,14 +22,15 @@ public class BoardLife {
         this.locationService = locationService;
         this.names = names;
         this.logger = Logger.getLogger();
+        this.ancestry = ancestry;
     }
 
     public void handleAging(CoordinatePair pair) {
         MiniPerson person = locationService.getPerson(pair);
         if (person == null) return;
 
-        person.lifespan--;
-        if (person.lifespan < 1){
+        person.decreaseLifespan(-1);
+        if (person.getLifespan() < 1){
             logger.addAction(names.getNameOf(locationService.getPerson(pair)) + " has died of old age. Their stats were: " + locationService.getPerson(pair).getAveragedStats());
             locationService.removePerson(pair);
 
@@ -109,8 +110,7 @@ public class BoardLife {
             );
         }
 
-        mp.lifespan = random.nextInt(50,81);
-
+        mp.setLifespan(random.nextInt(50,81));
         return mp;
     }
 }

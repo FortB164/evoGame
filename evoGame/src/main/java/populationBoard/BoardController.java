@@ -20,6 +20,7 @@ public class BoardController {
     public BoardNames names;
     Logger logger;
     BoardLife life;
+    BoardState states;
 
 
     public BoardController(Board board) {
@@ -30,6 +31,8 @@ public class BoardController {
         this.ancestry = new BoardAncestry(names);
         this.locationService = new BoardLocationService(board);
         this.life = new BoardLife(locationService, names, ancestry);
+        this.states = new BoardState(board);
+
     }
 
     public void initializePopulation(int count) {
@@ -47,6 +50,7 @@ public class BoardController {
 
             logger.addAction(names.getNameOf(mp) + " added to board");
         }
+        states.addState();
     }
 
     public void moveAllRandomly(){
@@ -104,5 +108,6 @@ public class BoardController {
             if (collision) life.handleAging(newPair);
 
         }
+        states.addState();
     }
 }

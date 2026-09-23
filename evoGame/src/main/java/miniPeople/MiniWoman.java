@@ -10,6 +10,5 @@ public class MiniWoman extends MiniPerson {
         this.strength = ListHelper.scaleArrayList(strength, 0.666);
         this.speed = ListHelper.scaleArrayList(speed, 0.8);
         this.iq = ListHelper.scaleArrayList(iq, 1.25);
-        
     }
 }

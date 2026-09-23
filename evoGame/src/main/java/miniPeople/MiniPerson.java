@@ -9,7 +9,7 @@ import utilities.ListHelper;
 
 import static utilities.ListHelper.mergeArrayList;
 
-public abstract class MiniPerson {
+public class MiniPerson {
 
     Gender gender = this instanceof MiniMan ? Gender.MALE : Gender.FEMALE;
 
@@ -17,9 +17,32 @@ public abstract class MiniPerson {
     public ArrayList<Double> speed = new ArrayList<>();
     public ArrayList<Double> iq = new ArrayList<>();
 
-    public int lifespan = 50;
+    private int lifespan; // assigned randomly in a range when initializing the population
 
     public MiniPerson(){
+    }
+
+    // copy constructor
+    public MiniPerson(MiniPerson other) {
+        this.gender = other.gender;
+        this.strength = new ArrayList<>(other.strength);
+        this.speed = new ArrayList<>(other.speed);
+        this.iq = new ArrayList<>(other.iq);
+        this.lifespan = other.lifespan;
+    }
+
+    public MiniPerson copy(){
+        return new MiniPerson(this);
+    }
+
+    public void decreaseLifespan(int aging){
+        lifespan += aging;
+    }
+    public int getLifespan(){
+        return lifespan;
+    }
+    public void setLifespan(int lifespan){
+        this.lifespan = lifespan;
     }
 
     public String getAveragedStats(){
@@ -33,22 +56,41 @@ public abstract class MiniPerson {
     }
     
     public MiniPerson[] fight(MiniPerson mp){
-
+        MiniPerson [] winnerLoser = new MiniPerson[2];
         Random random = new Random();
         double strengthA = ListHelper.arrayListAverage(this.strength);
         double strengthB = ListHelper.arrayListAverage(mp.strength);
 
-        double totalStrength = strengthA + strengthB;
-        double roll = random.nextDouble()*totalStrength;
+        double iqA = ListHelper.arrayListAverage(this.iq);
+        double iqB = ListHelper.arrayListAverage(mp.iq);
 
+        double totalStrength = strengthA + strengthB;
+        double totalIq = iqA + iqB;
+
+        double strengthBasedWin = random.nextDouble()*totalStrength;
+        double iqBasedWin = random.nextDouble()*totalIq;
+        double highestIq = Math.max(iqA, iqB);
+
+        // higher iq persons escapes
+        // both survive
+        // no one is removed
+        // for this reason, this is a very rare occurrence
+
+        if(iqBasedWin <= highestIq/10){
+            return new MiniPerson[0];
+        }
 
         // winner is in array[0] and loser is in array[1]
-        if(roll <= ListHelper.arrayListAverage(this.strength)){
-            return new MiniPerson[] {this, mp};
+        if(strengthBasedWin <= ListHelper.arrayListAverage(this.strength)){
+            winnerLoser[0] = this;
+            winnerLoser[1] = mp;
+            return  winnerLoser;
         }
 
         // here order is swapped, meaning the other person won instead
-        return new MiniPerson[] {mp, this};
+        winnerLoser[0] = mp;
+        winnerLoser[1]  = this;
+        return winnerLoser;
     }
 
 

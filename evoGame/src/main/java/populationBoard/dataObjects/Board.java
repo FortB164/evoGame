@@ -5,9 +5,9 @@ import java.util.HashMap;
 
 public class Board {
 
-    int sizeX;
-    int sizeY;
-    HashMap<CoordinatePair, MiniPerson> populationMap;
+    private final int sizeX;
+    private final int sizeY;
+    private final HashMap<CoordinatePair, MiniPerson> populationMap;
 
     public Board(int sizeX, int sizeY) {
         this.sizeX = sizeX;

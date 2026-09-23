@@ -20,6 +20,10 @@ public class Logger {
         actions.push(message);
     }
 
+    public String getAction(){
+        return actions.peek();
+    }
+
     public void clearActions(){
         actions.clear();
     }

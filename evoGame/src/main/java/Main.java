@@ -17,12 +17,9 @@ public class Main {
         print(logger.getSimLog());
 
 
-
-        // also, right now all persons move by one, I propose we make them move by their speed
-        // their strength decides their fights (to the death)
-        // their iq decides their chances to run away from a fight, as in both fighters survive
-
-
+        // ancestry model exists and tracks ancestries but isnt being shown anywhere on the ui
+        // same with the logger
+        // currently adding a history manager for board sim, aka a board state keeper
     }
 
 }

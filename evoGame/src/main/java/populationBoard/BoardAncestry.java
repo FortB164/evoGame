@@ -1,10 +1,10 @@
 package populationBoard;
 
+import java.util.HashMap;
+
 import miniPeople.MiniPerson;
 import miniPeople.dataObjects.Gender;
 import miniPeople.dataObjects.Node;
-
-import java.util.HashMap;
 
 public class BoardAncestry {
 
@@ -26,4 +26,37 @@ public class BoardAncestry {
         ancestry.put(child, childNode);
     }
 
+    public Node getFather(MiniPerson mp){
+        Node currentMp = ancestry.get(mp);
+        return currentMp.father;
+    }
+
+    public Node getMother(MiniPerson mp){
+        Node currentMp = ancestry.get(mp);
+        return currentMp.mother;
+    }
+
+    public String getFatherName(MiniPerson mp){
+        return getFather(mp).name;
+    }
+
+    public String getMotherName(MiniPerson mp){
+        return getMother(mp).name;
+    }
+
+    public String[] getParentsNames(MiniPerson mp){
+        String [] ret = new String[2];
+        ret[0] = getFather(mp).name;
+        ret[1] = getMother(mp).name;
+        return ret;
+    }
+
+    public Node[] getParents(MiniPerson mp){
+        Node currentMp = ancestry.get(mp);
+        Node[] ret = new Node[2];
+        ret[0] = currentMp.father;
+        ret[1] = currentMp.mother;
+        return ret;
+    }
 }
+

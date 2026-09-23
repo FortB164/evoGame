@@ -3,14 +3,13 @@ import miniPeople.MiniPerson;
 
 public class Node {
 
-    public MiniPerson child;
-    public String childName;
+    public MiniPerson mp;
+    public String name;
     public Node mother;
     public Node father;
 
-    public Node(MiniPerson child, String childName){
-        this.child = child;
-        this.childName = childName;
+    public Node(MiniPerson mp, String name){
+        this.mp = mp;
+        this.name = name;
     }
-
 }
