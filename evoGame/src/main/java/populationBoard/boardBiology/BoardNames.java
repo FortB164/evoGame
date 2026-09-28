@@ -1,9 +1,8 @@
-package populationBoard;
+package populationBoard.boardBiology;
 
-import miniPeople.MiniPerson;
-import miniPeople.dataObjects.Gender;
+import entities.miniPeople.MiniPerson;
+import entities.dataObjects.Gender;
 import populationBoard.dataObjects.Board;
-import populationBoard.dataObjects.CoordinatePair;
 
 import java.util.HashMap;
 

@@ -1,6 +1,6 @@
 package populationBoard.dataObjects;
 
-import miniPeople.MiniPerson;
+import entities.miniPeople.MiniPerson;
 import java.util.HashMap;
 
 public class Board {

@@ -5,35 +5,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2e35ee0a-1cf8-4821-9b5f-06019e18a4bf" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/populationBoard/BoardState.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/interfaces/Copyable.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/miniPeople/MiniPerson.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/miniPeople/MiniPerson.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/miniPeople/MiniWoman.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/miniPeople/MiniWoman.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/miniPeople/dataObjects/Node.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/miniPeople/dataObjects/Node.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/populationBoard/BoardAncestry.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/populationBoard/BoardAncestry.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/game/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/game/Game.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/miniPeople/MiniMan.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/entities/miniPeople/MiniMan.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/miniPeople/MiniPerson.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/entities/miniPeople/MiniPerson.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/miniPeople/MiniWoman.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/entities/miniPeople/MiniWoman.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/miniPeople/dataObjects/Gender.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/entities/dataObjects/Gender.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/miniPeople/dataObjects/Node.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/populationBoard/dataObjects/Node.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/populationBoard/BoardAncestry.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/populationBoard/boardBiology/BoardAncestry.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/populationBoard/BoardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/populationBoard/BoardController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/populationBoard/BoardLife.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/populationBoard/BoardLife.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/populationBoard/BoardLife.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/populationBoard/boardBiology/BoardLife.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/populationBoard/BoardLocationService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/populationBoard/boardLogic/BoardLocationService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/populationBoard/BoardNames.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/populationBoard/boardBiology/BoardNames.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/populationBoard/BoardState.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/populationBoard/boardLogic/BoardState.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/populationBoard/BoardValidator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/populationBoard/boardLogic/BoardValidator.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/populationBoard/dataObjects/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/populationBoard/dataObjects/Board.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/utilities/Logger.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/utilities/Logger.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/game/Game$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/game/Game$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/game/Game.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/game/Game.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/miniPeople/MiniPerson.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/miniPeople/MiniPerson.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/miniPeople/MiniWoman.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/miniPeople/MiniWoman.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/miniPeople/dataObjects/Gender.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/miniPeople/dataObjects/Gender.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/miniPeople/dataObjects/Node.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/miniPeople/dataObjects/Node.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/populationBoard/BoardAncestry.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/populationBoard/BoardAncestry.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/populationBoard/BoardController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/populationBoard/BoardController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/populationBoard/BoardLife.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/populationBoard/BoardLife.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/populationBoard/dataObjects/Board.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/populationBoard/dataObjects/Board.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/populationBoard/dataObjects/CoordinatePair.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/populationBoard/dataObjects/CoordinatePair.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/populationBoard/dataObjects/Direction.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/populationBoard/dataObjects/Direction.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/utilities/ListHelper.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/utilities/ListHelper.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/utilities/Logger.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/utilities/Logger.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/utilities/PersonHelper.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/utilities/PrintHelper.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/utilities/PrintHelper.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,6 +31,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Class" />
+        <option value="Interface" />
       </list>
     </option>
   </component>
@@ -93,6 +81,8 @@
     "git-widget-placeholder": "work/explore",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "/home/tanmay/Documents/Code/evoGame/evoGame",
+    "node.js.detected.package.jshint": "true",
+    "node.js.selected.package.jshint": "",
     "nodejs_package_manager_path": "npm",
     "project.structure.last.edited": "Project",
     "project.structure.proportion": "0.0",

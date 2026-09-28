@@ -1,6 +1,6 @@
-package populationBoard;
+package populationBoard.boardLogic;
 
-import miniPeople.MiniPerson;
+import entities.miniPeople.MiniPerson;
 import org.jetbrains.annotations.NotNull;
 import populationBoard.dataObjects.Board;
 import populationBoard.dataObjects.CoordinatePair;

@@ -1,10 +1,10 @@
-package populationBoard;
+package populationBoard.boardBiology;
 
 import java.util.HashMap;
 
-import miniPeople.MiniPerson;
-import miniPeople.dataObjects.Gender;
-import miniPeople.dataObjects.Node;
+import entities.miniPeople.MiniPerson;
+import entities.dataObjects.Gender;
+import populationBoard.dataObjects.Node;
 
 public class BoardAncestry {
 

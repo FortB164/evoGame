@@ -1,11 +1,11 @@
-package populationBoard;
+package populationBoard.boardLogic;
 
 import java.util.ArrayList;
 import java.util.Random;
 
 import org.jetbrains.annotations.NotNull;
 
-import miniPeople.MiniPerson;
+import entities.miniPeople.MiniPerson;
 import populationBoard.dataObjects.Board;
 import populationBoard.dataObjects.CoordinatePair;
 import populationBoard.dataObjects.Direction;

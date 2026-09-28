@@ -1,5 +1,5 @@
-package miniPeople.dataObjects;
-import miniPeople.MiniPerson;
+package populationBoard.dataObjects;
+import entities.miniPeople.MiniPerson;
 
 public class Node {
 

@@ -1,4 +1,4 @@
-package miniPeople.dataObjects;
+package entities.dataObjects;
 
 public enum Gender {
     MALE,

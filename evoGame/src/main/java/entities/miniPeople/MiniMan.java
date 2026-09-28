@@ -1,4 +1,4 @@
-package miniPeople;
+package entities.miniPeople;
 import java.util.ArrayList;
 
 public class MiniMan extends MiniPerson {

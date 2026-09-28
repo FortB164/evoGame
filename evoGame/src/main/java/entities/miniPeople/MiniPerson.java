@@ -1,15 +1,16 @@
-package miniPeople;
+package entities.miniPeople;
 import java.util.ArrayList;
 import java.util.Random;
 
+import interfaces.Copyable;
 import org.jetbrains.annotations.NotNull;
 
-import miniPeople.dataObjects.Gender;
+import entities.dataObjects.Gender;
 import utilities.ListHelper;
 
 import static utilities.ListHelper.mergeArrayList;
 
-public class MiniPerson {
+public class MiniPerson implements Copyable<MiniPerson> {
 
     Gender gender = this instanceof MiniMan ? Gender.MALE : Gender.FEMALE;
 
@@ -28,9 +29,10 @@ public class MiniPerson {
         this.strength = new ArrayList<>(other.strength);
         this.speed = new ArrayList<>(other.speed);
         this.iq = new ArrayList<>(other.iq);
-        this.lifespan = other.lifespan;
+        this.lifespan =  other.lifespan;
     }
 
+    @Override
     public MiniPerson copy(){
         return new MiniPerson(this);
     }

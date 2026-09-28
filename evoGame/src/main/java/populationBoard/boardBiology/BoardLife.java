@@ -1,9 +1,10 @@
-package populationBoard;
+package populationBoard.boardBiology;
 
-import miniPeople.MiniMan;
-import miniPeople.MiniPerson;
-import miniPeople.MiniWoman;
+import entities.miniPeople.MiniMan;
+import entities.miniPeople.MiniPerson;
+import entities.miniPeople.MiniWoman;
 import org.jetbrains.annotations.NotNull;
+import populationBoard.boardLogic.BoardLocationService;
 import populationBoard.dataObjects.CoordinatePair;
 import populationBoard.dataObjects.Direction;
 import utilities.ListHelper;

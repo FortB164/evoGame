@@ -5,7 +5,12 @@ import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
 
-import miniPeople.MiniPerson;
+import entities.miniPeople.MiniPerson;
+import populationBoard.boardBiology.BoardAncestry;
+import populationBoard.boardBiology.BoardLife;
+import populationBoard.boardBiology.BoardNames;
+import populationBoard.boardLogic.BoardLocationService;
+import populationBoard.boardLogic.BoardState;
 import populationBoard.dataObjects.Board;
 import populationBoard.dataObjects.CoordinatePair;
 import populationBoard.dataObjects.Direction;

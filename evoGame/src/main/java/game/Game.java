@@ -13,8 +13,8 @@ import java.util.HashMap;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import miniPeople.MiniPerson;
-import miniPeople.dataObjects.Gender;
+import entities.miniPeople.MiniPerson;
+import entities.dataObjects.Gender;
 import populationBoard.BoardController;
 import populationBoard.dataObjects.Board;
 import populationBoard.dataObjects.CoordinatePair;
