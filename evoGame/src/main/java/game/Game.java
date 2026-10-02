@@ -18,8 +18,6 @@ import entities.dataObjects.Gender;
 import populationBoard.BoardController;
 import populationBoard.dataObjects.Board;
 import populationBoard.dataObjects.CoordinatePair;
-import static utilities.PrintHelper.print;
-import static utilities.PrintHelper.println;
 
 
 public class Game {
@@ -49,6 +47,10 @@ public class Game {
         delay = time;
     }
 
+    public int getIterations(){
+        return controller.getStatesSize();
+    }
+
     public void start() {
         runLoop = true;
 
@@ -68,64 +70,6 @@ public class Game {
         // the AWT event thread is non-daemon, so the JVM won't exit while the frame is displayable
         if (frame != null) {
             frame.dispose();
-        }
-    }
-
-
-    public void renderInConsole() {
-        char[][] arrayToShow = new char[sizeX][sizeY];
-
-        // Fill with empty space (otherwise you get '\0' chars)
-        for (int i = 0; i < sizeX; i++) {
-            for (int j = 0; j < sizeY; j++) {
-                arrayToShow[i][j] = ' ';
-            }
-        }
-
-        HashMap<CoordinatePair, MiniPerson> hs = board.getPopulationMap();
-
-        for (CoordinatePair cp : hs.keySet()) {
-            MiniPerson p = hs.get(cp);
-            if (p.getGender() == Gender.MALE) {
-                arrayToShow[cp.getX()][cp.getY()] = 'M';
-            } else if (p.getGender() == Gender.FEMALE) {
-                arrayToShow[cp.getX()][cp.getY()] = 'F';
-            }
-        }
-
-        // Top border: ┌───┬───┬───┐
-        print("┌");
-        for (int j = 0; j < sizeY; j++) {
-            print("───");
-            if (j < sizeY - 1) print("┬");
-        }
-        println("┐");
-
-        // Rows
-        for (int i = 0; i < sizeX; i++) {
-            // Cell row: │ A │ B │ C │
-            print("│");
-            for (int j = 0; j < sizeY; j++) {
-                print(" " + arrayToShow[i][j] + " │");
-            }
-            print();
-
-            // Row separator (or bottom border on last row)
-            if (i < sizeX - 1) {
-                print("├");
-                for (int j = 0; j < sizeY; j++) {
-                    print("───");
-                    if (j < sizeY - 1) print("┼");
-                }
-                println("┤");
-            } else {
-                print("└");
-                for (int j = 0; j < sizeY; j++) {
-                    print("───");
-                    if (j < sizeY - 1) print("┴");
-                }
-                println("┘");
-            }
         }
     }
 
@@ -163,7 +107,10 @@ public class Game {
                         }
 
                         // Snapshot of the current population
-                        HashMap<CoordinatePair, MiniPerson> hs = board.getPopulationMap();
+                        HashMap<CoordinatePair, MiniPerson> hs;
+                        synchronized (board.getPopulationMap()) {
+                            hs = new HashMap<>(board.getPopulationMap());
+                        }
                         g2.setFont(new Font("SansSerif", Font.BOLD, (int)(cellSize * 0.7)));
                         FontMetrics fm = g2.getFontMetrics();
 

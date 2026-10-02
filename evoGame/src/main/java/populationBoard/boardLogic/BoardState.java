@@ -1,34 +1,33 @@
 package populationBoard.boardLogic;
 
-import entities.miniPeople.MiniPerson;
 import populationBoard.dataObjects.Board;
-import populationBoard.dataObjects.CoordinatePair;
 
-import java.util.*;
+import java.util.ArrayDeque;
 
 public class BoardState {
 
     // this class takes in the history of a board sim
     // each state is a snapshot taken each iteration
-    Board board;
-    LinkedList<HashMap<CoordinatePair, MiniPerson>> states = new LinkedList<>();
+    private final Board board;
+    private final ArrayDeque<Board> states = new ArrayDeque<>();
 
     public BoardState(Board board) {
         this.board = board;
     }
 
-    public void addState(){
-        states.addFirst(getState());
+    public int getStatesSize() {
+        return states.size();
     }
 
-    public HashMap<CoordinatePair, MiniPerson> getState(){
-        HashMap<CoordinatePair, MiniPerson> state = new HashMap<>();
-        for(Map.Entry<CoordinatePair, MiniPerson> entry : board.getPopulationMap().entrySet()){
-            CoordinatePair pair = entry.getKey();
-            MiniPerson mp =  entry.getValue();
-            MiniPerson mpCopy = mp.copy();
-            state.put(pair, mpCopy);
-        }
-        return state;
+    public void addState() {
+        states.addFirst(board.copy());
+    }
+
+    // gives states relative to current state. 0 gives current, 1 gives previous, 2 gives two states previous
+    public Board getState(int n) {
+        return states.stream()
+                .skip(n)
+                .findFirst()
+                .orElse(null);
     }
 }

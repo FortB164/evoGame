@@ -6,6 +6,7 @@ import java.util.Random;
 import org.jetbrains.annotations.NotNull;
 
 import entities.miniPeople.MiniPerson;
+import populationBoard.boardLogic.boardValidation.BoardValidator;
 import populationBoard.dataObjects.Board;
 import populationBoard.dataObjects.CoordinatePair;
 import populationBoard.dataObjects.Direction;
@@ -15,6 +16,7 @@ public class BoardLocationService {
 
     Board board;
     BoardValidator validator;
+    Random random = new Random();
 
     // this is a cache that gets updated every set/remove, avoiding re-computation every call
     ArrayList<CoordinatePair> emptySpaces;
@@ -26,79 +28,72 @@ public class BoardLocationService {
     }
 
     public MiniPerson getPerson(CoordinatePair pair) {
-        if(!validator.coordinatesValid(pair)) {
-            throw new IllegalArgumentException("Cannot get person. Invalid coordinates");
-        }
-        return board.getPopulationMap().get(pair);
+        return validator.coordinatesOccupied(pair) ?  board.getPopulationMap().get(pair) : null;
     }
 
-    public void setPerson(CoordinatePair pair, MiniPerson person) {
-        if(!validator.coordinatesValid(pair)) {
-            throw new IllegalArgumentException("Cannot set person. Invalid coordinates");
+    public int setPerson(CoordinatePair pair, MiniPerson person) {
+        if(validator.coordinatesValid(pair)
+                && validator.spaceAvailable()
+                && !validator.personAlreadyExists(person)
+                && !validator.coordinatesOccupied(pair))
+        {
+            emptySpaces = getEmptySpaces();
+            board.getPopulationMap().put(pair, person);
+            return 0;
         }
-        if(!validator.spaceAvailable()){
-            throw new IllegalArgumentException("Cannot set person. No available space to set person");
-        }
-        if(validator.personExists(person)) {
-            throw new IllegalArgumentException("Cannot set person. This person already exists");
-        }
-        if(validator.coordinatesOccupied(pair)){
-            throw new IllegalArgumentException("Cannot set. These coordinates are already occupied");
-        }
-
-        emptySpaces.remove(pair);
-        board.getPopulationMap().put(pair, person);
+        return 1;
     }
 
     public MiniPerson removePerson(CoordinatePair pair) {
-        if(!validator.coordinatesValid(pair)) {
-            throw new IllegalArgumentException("Cannot remove. Invalid coordinates");
-        }
-        if(!validator.coordinatesOccupied(pair)) {
-            throw new IllegalArgumentException("Cannot remove. Coordinates are empty");
+        if(validator.coordinatesValid(pair)
+                && validator.coordinatesOccupied(pair))
+        {
+            emptySpaces.add(pair);
+            return board.getPopulationMap().remove(pair);
         }
 
-        emptySpaces.add(pair);
-        return board.getPopulationMap().remove(pair);
+        return null;
     }
 
-    public void movePerson(CoordinatePair oldPair, CoordinatePair newPair) {
-        if(!validator.coordinatesValid(oldPair)) {
-            throw new IllegalArgumentException("Cannot move person. Invalid old coordinates");
+    public int movePerson(CoordinatePair oldPair, CoordinatePair newPair) {
+        if(validator.coordinatesValid(oldPair)
+                && validator.coordinatesValid(newPair)
+                && validator.coordinatesOccupied(oldPair)
+                && !validator.coordinatesOccupied(newPair)
+        )
+        {
+            setPerson(newPair, removePerson(oldPair));
+            return 0;
         }
-        if(!validator.coordinatesValid(newPair)) {
-            throw new IllegalArgumentException("Cannot move person. Invalid new coordinates");
-        }
-        if(!validator.coordinatesOccupied(oldPair)) {
-            throw new IllegalArgumentException("Cannot move person. Coordinates are empty");
-        }
-        if(validator.coordinatesOccupied(newPair)) {
-            throw new IllegalArgumentException("Cannot move person. Target coordinates are occupied");
-        }
-        setPerson(newPair, removePerson(oldPair));
+        return 1;
     }
 
-    public void movePersonByOne(CoordinatePair pair, @NotNull Direction direction) {
+    public int movePersonByOne(CoordinatePair pair, @NotNull Direction direction) {
         int newX = pair.getX() + direction.getX();
         int newY = pair.getY() + direction.getY();
         CoordinatePair newPair = new CoordinatePair(newX, newY);
-        movePerson(pair, newPair);
+        if(movePerson(pair, newPair) == 0) return 0;
+        return 1;
     }
 
-    public void movePersonBySpeed(CoordinatePair pair, @NotNull Direction direction) {
+
+    public int movePersonBySpeed(CoordinatePair pair, @NotNull Direction direction) {
         int speed = (int) ListHelper.arrayListAverage(getPerson(pair).speed);
         int newX = pair.getX() + direction.getX(speed);
         int newY = pair.getY() + direction.getY(speed);
         CoordinatePair newPair = new CoordinatePair(newX, newY);
-        movePerson(pair, newPair);
+        if(movePerson(pair, newPair) == 0) return 0;
+        return 1;
     }
 
     // gets unused spaces on the board
+    // this only exists to recalculate cache in case it gets corrupted
     public ArrayList<CoordinatePair> getEmptySpaces(){
         ArrayList<CoordinatePair> emptySpaces = new ArrayList<>();
         for(int i = 0 ; i < board.getSizeX() ; i++){
             for(int j = 0 ; j < board.getSizeY(); j++){
-                if(!validator.coordinatesOccupied(new CoordinatePair(i, j))){
+                if (!validator.coordinatesOccupied(new CoordinatePair(i,j)))
+                {
                     emptySpaces.add(new CoordinatePair(i, j));
                 }
             }
@@ -108,15 +103,12 @@ public class BoardLocationService {
 
     // generates random coordinates from available spaces
     public CoordinatePair generateRandomCoordinates() {
-        if(!hasAvailableSpace()) {
-            throw new IllegalStateException("No available space to generate random coordinates");
-        }
-        Random random = new Random();
-        return emptySpaces.get(random.nextInt(emptySpaces.size()));
+        return validator.spaceAvailable() ?
+                emptySpaces.get(random.nextInt(emptySpaces.size())) :
+                null;
     }
 
     public boolean hasAvailableSpace() {
         return (!emptySpaces.isEmpty() && validator.spaceAvailable());
     }
-
 }

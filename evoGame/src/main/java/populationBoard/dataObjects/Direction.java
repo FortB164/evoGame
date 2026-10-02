@@ -30,4 +30,14 @@ public enum Direction {
     public int getY(int speed){
         return y*speed;
     }
+
+    @Override
+    public String toString() {
+        String str = "";
+        if (x == 0 && y == 1){ str = "up"; }
+        else if (x == 1 && y == -1){ str = "down"; }
+        else if (x == -1 && y == 0){ str =  "left"; }
+        else if (x == 1 && y == 0){ str = "right"; }
+        return str;
+    }
 }

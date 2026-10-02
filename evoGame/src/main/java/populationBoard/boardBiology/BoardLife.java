@@ -8,7 +8,7 @@ import populationBoard.boardLogic.BoardLocationService;
 import populationBoard.dataObjects.CoordinatePair;
 import populationBoard.dataObjects.Direction;
 import utilities.ListHelper;
-import utilities.Logger;
+import utilities.logger.Logger;
 
 import java.util.Random;
 
@@ -32,7 +32,7 @@ public class BoardLife {
 
         person.decreaseLifespan(-1);
         if (person.getLifespan() < 1){
-            logger.addAction(names.getNameOf(locationService.getPerson(pair)) + " has died of old age. Their stats were: " + locationService.getPerson(pair).getAveragedStats());
+            logger.logAction(names.getNameOf(locationService.getPerson(pair)) + " has died of old age. Their stats were: " + locationService.getPerson(pair).getAveragedStats());
             locationService.removePerson(pair);
 
         }
@@ -50,21 +50,21 @@ public class BoardLife {
         if(parent1 == null || parent2 == null) return;
 
         if(parent1.getGender() == parent2.getGender()){
-            logger.addAction(names.getNameOf(parent1) + " and " +  names.getNameOf(parent2) + " are the same gender. A fight has broken out!");
+            logger.logAction(names.getNameOf(parent1) + " and " +  names.getNameOf(parent2) + " are the same gender. A fight has broken out!");
             handleFights(pair, newPair);
             // one of the two same-gender combatants is now dead, so breeding cannot happen
             return;
         }
 
         MiniPerson child = parent1.breed(parent2);
-        if(child == null) logger.addAction("Breeding between " + names.getNameOf(parent1) + " and " + names.getNameOf(parent2) + "has failed.");
+        if(child == null) logger.logAction("Breeding between " + names.getNameOf(parent1) + " and " + names.getNameOf(parent2) + "has failed.");
         else if (locationService.hasAvailableSpace()) {
             CoordinatePair childPair = locationService.generateRandomCoordinates();
             names.nameAndSet(child);
             locationService.setPerson(childPair, child);
             ancestry.handleAncestry(child, parent1, parent2);
 
-            logger.addAction("A child of " + names.getNameOf(parent1) + " and " + names.getNameOf(parent2) + " is born at" + childPair.toString());
+            logger.logAction("A child of " + names.getNameOf(parent1) + " and " + names.getNameOf(parent2) + " is born at" + childPair.toString());
             // if breeding successful, add child to random coords
         }
 
@@ -76,6 +76,10 @@ public class BoardLife {
         MiniPerson mp2 = locationService.getPerson(pair2);
         // make them fight, it will give result of winner-loser
         MiniPerson[] winnerLoser = mp1.fight(mp2);
+        if (winnerLoser == null || winnerLoser.length < 2) {
+            logger.logAction("Fight between " + names.getNameOf(mp1) + " and " + names.getNameOf(mp2) + " produced no result.");
+            return;
+        }
 
         // first index is winner, last is loser
         // if first index is mp1, remove mp2
@@ -89,7 +93,7 @@ public class BoardLife {
             locationService.removePerson(pair1);
         }
 
-        logger.addAction(names.getNameOf(winnerLoser[0]) + " has killed " + names.getNameOf(winnerLoser[1]) + ".");
+        logger.logAction(names.getNameOf(winnerLoser[0]) + " has killed " + names.getNameOf(winnerLoser[1]) + ".");
     }
 
     public static MiniPerson generateMiniPerson() {

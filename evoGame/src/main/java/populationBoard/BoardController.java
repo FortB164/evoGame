@@ -14,7 +14,7 @@ import populationBoard.boardLogic.BoardState;
 import populationBoard.dataObjects.Board;
 import populationBoard.dataObjects.CoordinatePair;
 import populationBoard.dataObjects.Direction;
-import utilities.Logger;
+import utilities.logger.Logger;
 
 
 public class BoardController {
@@ -40,9 +40,13 @@ public class BoardController {
 
     }
 
+    public int getStatesSize(){
+        return states.getStatesSize();
+    }
+
     public void initializePopulation(int count) {
-        if (count > board.getFullSize()) {
-            throw new IllegalArgumentException("Cannot add more people than board size");
+        if (!locationService.hasAvailableSpace()) {
+            return;
         }
 
         for(int i = 0 ; i < count; i++) {
@@ -51,9 +55,13 @@ public class BoardController {
             CoordinatePair pair = locationService.generateRandomCoordinates();
 
             names.nameAndSet(mp);
-            locationService.setPerson(pair, mp);
+            if (locationService.setPerson(pair, mp) != 0) {
+                logger.logError(new IllegalStateException(
+                        "Failed to place " + names.getNameOf(mp) + " at " + pair));
+                return;
+            }
 
-            logger.addAction(names.getNameOf(mp) + " added to board");
+            logger.logAction(names.getNameOf(mp) + " added to board.");
         }
         states.addState();
     }
@@ -75,29 +83,24 @@ public class BoardController {
             Direction direction = Direction.values()[random.nextInt(4)];  // random direction to move in
             CoordinatePair newPair = new CoordinatePair(pair.getX()+direction.getX(),pair.getY()+direction.getY());
 
-            try {
-                locationService.movePersonByOne(pair,direction); // try to move
-                moveFlag = true; // if moved successfully, count it as a move
-            } catch (IllegalArgumentException e) {
-                // if move failed due to filled space or out of bounds direction, skip turn
-                moveFlag = false; // count it as not moved
 
-                String msg = e.getMessage();
-                // if the failure is specifically that target coords are occupied,
-                // attempt breeding immediately, as it counts as collision
-                if(msg.equals("Cannot move person. Target coordinates are occupied")){
+            if(locationService.movePersonByOne(pair,direction) == 0){
+                moveFlag = true;
+            }
+
+            else{
+                moveFlag = false;
+
+                if(locationService.getPerson(newPair) != null){
                     collision = true;
-                    logger.addAction(names.getNameOf(locationService.getPerson(pair)) + " has collided with " + names.getNameOf(locationService.getPerson(newPair)) + ".");
+                    logger.logAction(names.getNameOf(locationService.getPerson(pair)) + " has collided with " + names.getNameOf(locationService.getPerson(newPair)) + ".");
                     life.handleBreeding(pair,direction);
                 }
             }
 
-            // if the move was successful, update coordinates of the person and add to moved
-            // if coordinates are not updated, then someone else could move into the old empty coords,
-            // and the person who moved into those coords that are counted as moved can not move when their turn comes
-            // while the person who moved away gets to unfairly move many times
             if(moveFlag){
                 hasMoved.add(person);
+                logger.logAction(names.getNameOf(person) + " has moved " + direction.toString() + ", into " + newPair.toString());
             }
 
             // A collision consumes both participants' turns, even if one was eliminated.

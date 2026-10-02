@@ -1,7 +1,6 @@
 import game.Game;
-import utilities.Logger;
-
 import static utilities.PrintHelper.print;
+import utilities.logger.Logger;
 
 public class Main {
     public static void main(String[] args) {
@@ -14,7 +13,13 @@ public class Main {
         game.start();
 
         Logger logger = Logger.getLogger();
-        print(logger.getSimLog());
+        print(logger.getActionLog());
+        logger.clearActions();
+        print(logger.getErrorLog());
+        logger.clearErrors();
+
+        print("Sim ran for " + game.getIterations() + " iterations");
+
 
 
         // ancestry model exists and tracks ancestries but isnt being shown anywhere on the ui
